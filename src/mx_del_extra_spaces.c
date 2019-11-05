@@ -1,57 +1,48 @@
 #include "libmx.h"
 
-int mx_coun_len_space(char *str_new) {
-	int i = 0;
-	int len_end = 0;
-	char *str = mx_strtrim(str_new);
-
-	while (str[i]) {
-    	if (!mx_isspace(str[i]))
-    	   	len_end++;
- 
-    	if (mx_isspace(str[i])){
-    		len_end++;
-
-    		while(mx_isspace(str[i + 1]))
-    			i++;
-    	}
-    	i++;
+int mx_count_len_without_space(char *str) {
+	int len = 0;
+	for (int i = 0; i < mx_strlen(str) - 1; i++)
+    {
+        if(mx_isspace(str[i]) && mx_isspace(str[i+1])) {
+            len++;
+        }
     }
-    free(str);
-  //free(str_new);
-    return len_end;
+    return mx_strlen(str) - len;
 }
 
 char *mx_del_extra_spaces(const char *str) {
-
-	int i = 0;
-	int j = 0;
-    if (!str)
+    if (!str){
         return NULL;
-
-	char *str_start = mx_strtrim(str);
-
-	//cчитаем число символов конечного файла без лишних пробелов, чтобы выделить ему память
-	int len_end = mx_coun_len_space(str_start);
-    char *str_end = mx_strnew(len_end);
-
-    while (str_start[i]) {
-    	if (!mx_isspace(str_start[i])) {
-    		str_end[j] = str_start[i];
-    	   	i++;
-    		j++;
-    	}
-    	if (mx_isspace(str_start[i])){
-    		str_end[j] = ' ';
-    		j++;
-
-    		while(mx_isspace(str_start[i + 1])) {
-    			i++;
-    		}
-    		i++;
-    	}
-
     }
-    free(str_start);
-    return str_end;
+
+	char *str_trim = mx_strtrim(str);
+	int reslen = mx_count_len_without_space(str_trim);
+    char *res = mx_strnew(reslen);
+    int c = 0;
+
+    if (!res)
+    {
+       return NULL;
+    }
+
+    if (!str_trim)
+    {
+        return (char *) str;
+    }
+
+    for (int i = 0; i < mx_strlen(str_trim); i++)
+    {
+        if (!mx_isspace(str_trim[i]))
+        {
+            res[c] = str_trim[i];
+            c++;
+        }
+        else if (!mx_isspace(str_trim[i + 1])) {
+            res[c] = ' ';
+            c++;
+        }
+    }
+    //mx_strdel(&str_trim);
+    return res;
 }
