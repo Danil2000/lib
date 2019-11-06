@@ -2,32 +2,31 @@
 
  char *mx_nbr_to_hex(unsigned long nbr) 
 {    
-	char *hexaDeciNum = mx_strnew(100);  
-      
-    // counter for hexadecimal number array 
-    int i = 0; 
-    while(nbr!=0) 
-    {    
-        // temporary variable to store remainder 
-        int temp  = 0; 
-          
-        // storing remainder in temp variable. 
-        temp = nbr % 16; 
-          
-        // check if temp < 10 
-        if(temp < 10) 
-        { 
-            hexaDeciNum[i] = temp + 48; 
-            i++; 
-        } 
-        else
-        { 
-        	hexaDeciNum[i] = temp + 55; 
-            i++; 
-        } 
-          
-        nbr = nbr/16;
-      	
-    } 
-    return hexaDeciNum;
+	unsigned long tmp_nbr = nbr;
+    int length = 0;
+    char *result = NULL;
+    int i = 0;
+
+    if (nbr == 0) {
+        return "0";
+    }
+    while (tmp_nbr > 0) {
+        tmp_nbr /= 16;
+        length++;
+    }
+    result = mx_strnew(length);
+    i = length - 1;
+    while (nbr > 0) {
+        int tmp = nbr % 16;
+
+        if (tmp < 10) {
+            result[i] = tmp + '0';
+        }
+        else {
+            result[i] = tmp + 87;
+        }
+        nbr /= 16;
+        i--;
+    }
+    return result;
 } 

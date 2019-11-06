@@ -56,6 +56,8 @@ char *mx_strcat(char *restrict s1, const char *restrict s2);
 char *mx_strdup(const char *str);
 char *mx_replace_substr(const char *str, const char *sub, const char *replace);
 int mx_read_line (char **lineptr, int buf_size, char delim, const int fd);
+void mx_str_reverse (char *s);
+char *mx_strndup(const char *s1, size_t n);
 
 void *mx_memset(void *b, int c, size_t len);
 void *mx_memcpy(void *restrict dst, const void *restrict src, size_t n);

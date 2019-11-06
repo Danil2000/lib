@@ -58,7 +58,8 @@ SRC = ./mx_binary_search.c \
     ./mx_swap_char.c \
     ./mx_swap.c \
     ./mx_mempcpy.c \
-    ./mx_digit_count.c
+    ./mx_digit_count.c \
+
 SRCS = ./src/mx_binary_search.c \
     ./src/mx_memrchr.c \
     ./src/mx_bubble_sort.c \
